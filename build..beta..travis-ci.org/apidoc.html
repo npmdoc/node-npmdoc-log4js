@@ -1,0 +1,1977 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api-documentation for
+    <a
+
+        href="https://github.com/nomiddlename/log4js-node#readme"
+
+    >log4js (v1.1.1)</a>
+</h1>
+<h4>Port of Log4js to work with node.</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.log4js">module log4js</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.addAppender">
+            function <span class="apidocSignatureSpan">log4js.</span>addAppender
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.clearAppenders">
+            function <span class="apidocSignatureSpan">log4js.</span>clearAppenders
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.configure">
+            function <span class="apidocSignatureSpan">log4js.</span>configure
+            <span class="apidocSignatureSpan">(configurationFileOrObject, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.connectLogger">
+            function <span class="apidocSignatureSpan">log4js.</span>connectLogger
+            <span class="apidocSignatureSpan">(logger4js, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.getBufferedLogger">
+            function <span class="apidocSignatureSpan">log4js.</span>getBufferedLogger
+            <span class="apidocSignatureSpan">(categoryName)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.getDefaultLogger">
+            function <span class="apidocSignatureSpan">log4js.</span>getDefaultLogger
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.getLogger">
+            function <span class="apidocSignatureSpan">log4js.</span>getLogger
+            <span class="apidocSignatureSpan">(loggerCategoryName)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.hasLogger">
+            function <span class="apidocSignatureSpan">log4js.</span>hasLogger
+            <span class="apidocSignatureSpan">(logger)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.levels.Level">
+            function <span class="apidocSignatureSpan">log4js.</span>levels.Level
+            <span class="apidocSignatureSpan">(level, levelStr)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.loadAppender">
+            function <span class="apidocSignatureSpan">log4js.</span>loadAppender
+            <span class="apidocSignatureSpan">(appender, appenderModule)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.replaceConsole">
+            function <span class="apidocSignatureSpan">log4js.</span>replaceConsole
+            <span class="apidocSignatureSpan">(logger)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.restoreConsole">
+            function <span class="apidocSignatureSpan">log4js.</span>restoreConsole
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.setGlobalLogLevel">
+            function <span class="apidocSignatureSpan">log4js.</span>setGlobalLogLevel
+            <span class="apidocSignatureSpan">(level)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.shutdown">
+            function <span class="apidocSignatureSpan">log4js.</span>shutdown
+            <span class="apidocSignatureSpan">(cb)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">log4js.</span>appenderMakers</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">log4js.</span>appenders</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">log4js.</span>connect_logger</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">log4js.</span>date_format</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">log4js.</span>layouts</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">log4js.</span>levels</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">log4js.</span>levels.Level.prototype</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">log4js.</span>logger</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.log4js.appenderMakers">module log4js.appenderMakers</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.appenderMakers.stdout">
+            function <span class="apidocSignatureSpan">log4js.appenderMakers.</span>stdout
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.log4js.appenders">module log4js.appenders</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.appenders.stdout">
+            function <span class="apidocSignatureSpan">log4js.appenders.</span>stdout
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.log4js.connect_logger">module log4js.connect_logger</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.connect_logger.connectLogger">
+            function <span class="apidocSignatureSpan">log4js.connect_logger.</span>connectLogger
+            <span class="apidocSignatureSpan">(logger4js, options)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.log4js.date_format">module log4js.date_format</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.date_format.asString">
+            function <span class="apidocSignatureSpan">log4js.date_format.</span>asString
+            <span class="apidocSignatureSpan">(date, timezoneOffset)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">log4js.date_format.</span>ABSOLUTETIME_FORMAT</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">log4js.date_format.</span>DATETIME_FORMAT</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">log4js.date_format.</span>ISO8601_FORMAT</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">log4js.date_format.</span>ISO8601_WITH_TZ_OFFSET_FORMAT</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.log4js.layouts">module log4js.layouts</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.layouts.addLayout">
+            function <span class="apidocSignatureSpan">log4js.layouts.</span>addLayout
+            <span class="apidocSignatureSpan">(name, serializerGenerator)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.layouts.basicLayout">
+            function <span class="apidocSignatureSpan">log4js.layouts.</span>basicLayout
+            <span class="apidocSignatureSpan">(loggingEvent, timezoneOffset)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.layouts.coloredLayout">
+            function <span class="apidocSignatureSpan">log4js.layouts.</span>coloredLayout
+            <span class="apidocSignatureSpan">(loggingEvent, timezoneOffset)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.layouts.colouredLayout">
+            function <span class="apidocSignatureSpan">log4js.layouts.</span>colouredLayout
+            <span class="apidocSignatureSpan">(loggingEvent, timezoneOffset)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.layouts.dummyLayout">
+            function <span class="apidocSignatureSpan">log4js.layouts.</span>dummyLayout
+            <span class="apidocSignatureSpan">(loggingEvent)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.layouts.layout">
+            function <span class="apidocSignatureSpan">log4js.layouts.</span>layout
+            <span class="apidocSignatureSpan">(name, config)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.layouts.messagePassThroughLayout">
+            function <span class="apidocSignatureSpan">log4js.layouts.</span>messagePassThroughLayout
+            <span class="apidocSignatureSpan">(loggingEvent)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.layouts.patternLayout">
+            function <span class="apidocSignatureSpan">log4js.layouts.</span>patternLayout
+            <span class="apidocSignatureSpan">(pattern, tokens, timezoneOffset)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.log4js.levels">module log4js.levels</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.levels.Level">
+            function <span class="apidocSignatureSpan">log4js.levels.</span>Level
+            <span class="apidocSignatureSpan">(level, levelStr)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.levels.forName">
+            function <span class="apidocSignatureSpan">log4js.levels.</span>forName
+            <span class="apidocSignatureSpan">(levelStr, levelVal)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.levels.getLevel">
+            function <span class="apidocSignatureSpan">log4js.levels.</span>getLevel
+            <span class="apidocSignatureSpan">(levelStr)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.levels.toLevel">
+            function <span class="apidocSignatureSpan">log4js.levels.</span>toLevel
+            <span class="apidocSignatureSpan">(sArg, defaultLevel)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">log4js.levels.</span>ALL</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">log4js.levels.</span>DEBUG</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">log4js.levels.</span>ERROR</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">log4js.levels.</span>FATAL</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">log4js.levels.</span>INFO</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">log4js.levels.</span>MARK</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">log4js.levels.</span>OFF</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">log4js.levels.</span>TRACE</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">log4js.levels.</span>WARN</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.log4js.levels.Level">module log4js.levels.Level</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.levels.Level.Level">
+            function <span class="apidocSignatureSpan">log4js.levels.</span>Level
+            <span class="apidocSignatureSpan">(level, levelStr)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.log4js.levels.Level.prototype">module log4js.levels.Level.prototype</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.levels.Level.prototype.isEqualTo">
+            function <span class="apidocSignatureSpan">log4js.levels.Level.prototype.</span>isEqualTo
+            <span class="apidocSignatureSpan">(otherLevel)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.levels.Level.prototype.isGreaterThanOrEqualTo">
+            function <span class="apidocSignatureSpan">log4js.levels.Level.prototype.</span>isGreaterThanOrEqualTo
+            <span class="apidocSignatureSpan">(otherLevel)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.levels.Level.prototype.isLessThanOrEqualTo">
+            function <span class="apidocSignatureSpan">log4js.levels.Level.prototype.</span>isLessThanOrEqualTo
+            <span class="apidocSignatureSpan">(otherLevel)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.levels.Level.prototype.toString">
+            function <span class="apidocSignatureSpan">log4js.levels.Level.prototype.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.log4js.logger">module log4js.logger</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.logger.Logger">
+            function <span class="apidocSignatureSpan">log4js.logger.</span>Logger
+            <span class="apidocSignatureSpan">(name, level)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.logger.LoggingEvent">
+            function <span class="apidocSignatureSpan">log4js.logger.</span>LoggingEvent
+            <span class="apidocSignatureSpan">(categoryName, level, data, logger)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.logger.addLevelMethods">
+            function <span class="apidocSignatureSpan">log4js.logger.</span>addLevelMethods
+            <span class="apidocSignatureSpan">(level)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.logger.disableAllLogWrites">
+            function <span class="apidocSignatureSpan">log4js.logger.</span>disableAllLogWrites
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.log4js.logger.enableAllLogWrites">
+            function <span class="apidocSignatureSpan">log4js.logger.</span>enableAllLogWrites
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.log4js" id="apidoc.module.log4js">module log4js</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.addAppender" id="apidoc.element.log4js.addAppender">
+        function <span class="apidocSignatureSpan">log4js.</span>addAppender
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function addAppender() {
+  var args = Array.prototype.slice.call(arguments);
+  var appender = args.shift();
+  //check for a shutdown fn
+  if (args.length &#x3e; 0 &#x26;&#x26; typeof args[0] === &#x27;function&#x27;) {
+    appenderShutdowns[appender] = args.shift();
+  }
+
+  if (args.length === 0 || args[0] === undefined) {
+    args = [ ALL_CATEGORIES ];
+  }
+  //argument may already be an array
+  if (Array.isArray(args[0])) {
+    args = args[0];
+  }
+
+  args.forEach(function(appenderCategory) {
+    addAppenderToCategory(appender, appenderCategory);
+
+    if (appenderCategory === ALL_CATEGORIES) {
+      addAppenderToAllLoggers(appender);
+    } else {
+
+      for(var loggerCategory in loggers) {
+        if (doesAppenderContainsLogger(appenderCategory,loggerCategory)) {
+          loggers[loggerCategory].addListener(&#x22;log&#x22;, appender);
+        }
+      }
+
+    }
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```
+See example.js for a full example, but here&#x27;s a snippet (also in fromreadme.js):
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+//console log is loaded by default, so you won&#x27;t normally need to do this
+//log4js.loadAppender(&#x27;console&#x27;);
+log4js.loadAppender(&#x27;file&#x27;);
+//log4js.<span class="apidocCodeKeywordSpan">addAppender</span>(log4js.appenders.console());
+log4js.addAppender(log4js.appenders.file(&#x27;logs/cheese.log&#x27;), &#x27;cheese&#x27;);
+
+var logger = log4js.getLogger(&#x27;cheese&#x27;);
+logger.setLevel(&#x27;ERROR&#x27;);
+
+logger.trace(&#x27;Entering cheese testing&#x27;);
+logger.debug(&#x27;Got cheese.&#x27;);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.clearAppenders" id="apidoc.element.log4js.clearAppenders">
+        function <span class="apidocSignatureSpan">log4js.</span>clearAppenders
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function clearAppenders() {
+  //if we&#x27;re calling clearAppenders, we&#x27;re probably getting ready to write
+  //so turn log writes back on, just in case this is after a shutdown
+  loggerModule.enableAllLogWrites();
+  appenders = {};
+  for (var logger in loggers) {
+    if (hasLogger(logger)) {
+      loggers[logger].removeAllListeners(&#x22;log&#x22;);
+    }
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.configure" id="apidoc.element.log4js.configure">
+        function <span class="apidocSignatureSpan">log4js.</span>configure
+        <span class="apidocSignatureSpan">(configurationFileOrObject, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function configure(configurationFileOrObject, options) {
+  var config = configurationFileOrObject;
+  config = config || process.env.LOG4JS_CONFIG;
+  options = options || {};
+
+  if (config === undefined || config === null || typeof(config) === &#x27;string&#x27;) {
+    if (options.reloadSecs) {
+      initReloadConfiguration(config, options);
+    }
+    config = loadConfigurationFile(config) || defaultConfig;
+  } else {
+    if (options.reloadSecs) {
+      getLogger(&#x27;log4js&#x27;).warn(
+        &#x27;Ignoring configuration reload parameter for &#x22;object&#x22; configuration.&#x27;
+      );
+    }
+  }
+  configureOnceOff(config, options);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```bash
+[2010-01-17 11:43:37.987] [ERROR] cheese - Cheese is too ripe!
+[2010-01-17 11:43:37.990] [FATAL] cheese - Cheese was breeding ground for listeria.
+```
+The first 5 lines of the code above could also be written as:
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+log4js.<span class="apidocCodeKeywordSpan">configure</span>({
+  appenders: [
+    { type: &#x27;console&#x27; },
+    { type: &#x27;file&#x27;, filename: &#x27;logs/cheese.log&#x27;, category: &#x27;cheese&#x27; }
+  ]
+});
+```
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.connectLogger" id="apidoc.element.log4js.connectLogger">
+        function <span class="apidocSignatureSpan">log4js.</span>connectLogger
+        <span class="apidocSignatureSpan">(logger4js, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function getLogger(logger4js, options) {
+	if (&#x27;object&#x27; == typeof options) {
+		options = options || {};
+	} else if (options) {
+		options = { format: options };
+	} else {
+		options = {};
+	}
+
+	var thislogger = logger4js
+  , level = levels.toLevel(options.level, levels.INFO)
+  , fmt = options.format || DEFAULT_FORMAT
+  , nolog = options.nolog ? createNoLogCondition(options.nolog) : null;
+
+  return function (req, res, next) {
+    // mount safety
+    if (req._logging) return next();
+
+		// nologs
+		if (nolog &#x26;&#x26; nolog.test(req.originalUrl)) return next();
+		if (thislogger.isLevelEnabled(level) || options.level === &#x27;auto&#x27;) {
+
+			var start = new Date()
+			, statusCode
+			, writeHead = res.writeHead
+			, url = req.originalUrl;
+
+			// flag as logging
+			req._logging = true;
+
+			// proxy for statusCode.
+			res.writeHead = function(code, headers){
+				res.writeHead = writeHead;
+				res.writeHead(code, headers);
+				res.__statusCode = statusCode = code;
+				res.__headers = headers || {};
+
+				//status code response level handling
+				if(options.level === &#x27;auto&#x27;){
+					level = levels.INFO;
+					if(code &#x3e;= 300) level = levels.WARN;
+					if(code &#x3e;= 400) level = levels.ERROR;
+				} else {
+					level = levels.toLevel(options.level, levels.INFO);
+				}
+			};
+
+			//hook on end request to emit the log entry of the HTTP request.
+			res.on(&#x27;finish&#x27;, function() {
+				res.responseTime = new Date() - start;
+				//status code response level handling
+				if(res.statusCode &#x26;&#x26; options.level === &#x27;auto&#x27;){
+					level = levels.INFO;
+					if(res.statusCode &#x3e;= 300) level = levels.WARN;
+					if(res.statusCode &#x3e;= 400) level = levels.ERROR;
+				}
+				if (thislogger.isLevelEnabled(level)) {
+          var combined_tokens = assemble_tokens(req, res, options.tokens || []);
+					if (typeof fmt === &#x27;function&#x27;) {
+						var line = fmt(req, res, function(str){ return format(str, combined_tokens); });
+						if (line) thislogger.log(level, line);
+					} else {
+						thislogger.log(level, format(fmt, combined_tokens));
+					}
+				}
+			});
+		}
+
+    //ensure next gets always called
+    next();
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.getBufferedLogger" id="apidoc.element.log4js.getBufferedLogger">
+        function <span class="apidocSignatureSpan">log4js.</span>getBufferedLogger
+        <span class="apidocSignatureSpan">(categoryName)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function getBufferedLogger(categoryName) {
+    var base_logger = getLogger(categoryName);
+    var logger = {};
+    logger.temp = [];
+    logger.target = base_logger;
+    logger.flush = function () {
+        for (var i = 0; i &#x3c; logger.temp.length; i++) {
+            var log = logger.temp[i];
+            logger.target[log.level](log.message);
+            delete logger.temp[i];
+        }
+    };
+    logger.trace = function (message) { logger.temp.push({level: &#x27;trace&#x27;, message: message}); };
+    logger.debug = function (message) { logger.temp.push({level: &#x27;debug&#x27;, message: message}); };
+    logger.info = function (message) { logger.temp.push({level: &#x27;info&#x27;, message: message}); };
+    logger.warn = function (message) { logger.temp.push({level: &#x27;warn&#x27;, message: message}); };
+    logger.error = function (message) { logger.temp.push({level: &#x27;error&#x27;, message: message}); };
+    logger.fatal = function (message) { logger.temp.push({level: &#x27;fatal&#x27;, message: message}); };
+
+    return logger;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.getDefaultLogger" id="apidoc.element.log4js.getDefaultLogger">
+        function <span class="apidocSignatureSpan">log4js.</span>getDefaultLogger
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function getDefaultLogger() {
+  return getLogger(Logger.DEFAULT_CATEGORY);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.getLogger" id="apidoc.element.log4js.getLogger">
+        function <span class="apidocSignatureSpan">log4js.</span>getLogger
+        <span class="apidocSignatureSpan">(loggerCategoryName)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function getLogger(loggerCategoryName) {
+
+  // Use default logger if categoryName is not specified or invalid
+  if (typeof loggerCategoryName !== &#x22;string&#x22;) {
+    loggerCategoryName = Logger.DEFAULT_CATEGORY;
+  }
+
+  if (!hasLogger(loggerCategoryName)) {
+
+    var level;
+
+<span class="apidocCodeCommentSpan">    /* jshint -W073 */
+</span>    // If there&#x27;s a &#x22;levels&#x22; entry in the configuration
+    if (levels.config) {
+      // Goes through the categories in the levels configuration entry,
+      // starting with the &#x22;higher&#x22; ones.
+      var keys = Object.keys(levels.config).sort();
+      for (var idx = 0; idx &#x3c; keys.length; idx++) {
+        var levelCategory = keys[idx];
+        if (doesLevelEntryContainsLogger(levelCategory, loggerCategoryName)) {
+          // level for the logger
+          level = levels.config[levelCategory];
+        }
+      }
+    }
+    /* jshint +W073 */
+
+    // Create the logger for this name if it doesn&#x27;t already exist
+    loggers[loggerCategoryName] = new Logger(loggerCategoryName, level);
+
+    /* jshint -W083 */
+    var appenderList;
+    for(var appenderCategory in appenders) {
+      if (doesAppenderContainsLogger(appenderCategory, loggerCategoryName)) {
+        appenderList = appenders[appenderCategory];
+        appenderList.forEach(function(appender) {
+          loggers[loggerCategoryName].addListener(&#x22;log&#x22;, appender);
+        });
+      }
+    }
+    /* jshint +W083 */
+
+    if (appenders[ALL_CATEGORIES]) {
+      appenderList = appenders[ALL_CATEGORIES];
+      appenderList.forEach(function(appender) {
+        loggers[loggerCategoryName].addListener(&#x22;log&#x22;, appender);
+      });
+    }
+  }
+
+  return loggers[loggerCategoryName];
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+
+## usage
+
+Minimalist version:
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+var logger = log4js.<span class="apidocCodeKeywordSpan">getLogger</span>();
+logger.debug(&#x22;Some debug messages&#x22;);
+```
+By default, log4js outputs to stdout with the coloured layout (thanks to [masylum](http://github.com/masylum)), so for the above
+ you would see:
+```bash
+[2010-01-17 11:43:37.987] [DEBUG] [default] - Some debug messages
+```
+See example.js for a full example, but here&#x27;s a snippet (also in fromreadme.js):
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.hasLogger" id="apidoc.element.log4js.hasLogger">
+        function <span class="apidocSignatureSpan">log4js.</span>hasLogger
+        <span class="apidocSignatureSpan">(logger)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function hasLogger(logger) {
+  return loggers.hasOwnProperty(logger);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.levels.Level" id="apidoc.element.log4js.levels.Level">
+        function <span class="apidocSignatureSpan">log4js.</span>levels.Level
+        <span class="apidocSignatureSpan">(level, levelStr)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Level(level, levelStr) {
+  this.level = level;
+  this.levelStr = levelStr;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.loadAppender" id="apidoc.element.log4js.loadAppender">
+        function <span class="apidocSignatureSpan">log4js.</span>loadAppender
+        <span class="apidocSignatureSpan">(appender, appenderModule)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function loadAppender(appender, appenderModule) {
+  appenderModule = appenderModule || requireAppender(appender);
+
+  if (!appenderModule) {
+    throw new Error(&#x22;Invalid log4js appender: &#x22; + util.inspect(appender));
+  }
+
+  module.exports.appenders[appender] = appenderModule.appender.bind(appenderModule);
+  if (appenderModule.shutdown) {
+    appenderShutdowns[appender] = appenderModule.shutdown.bind(appenderModule);
+  }
+  appenderMakers[appender] = appenderModule.configure.bind(appenderModule);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```bash
+[2010-01-17 11:43:37.987] [DEBUG] [default] - Some debug messages
+```
+See example.js for a full example, but here&#x27;s a snippet (also in fromreadme.js):
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+//console log is loaded by default, so you won&#x27;t normally need to do this
+//log4js.<span class="apidocCodeKeywordSpan">loadAppender</span>(&#x27;console&#x27;);
+log4js.loadAppender(&#x27;file&#x27;);
+//log4js.addAppender(log4js.appenders.console());
+log4js.addAppender(log4js.appenders.file(&#x27;logs/cheese.log&#x27;), &#x27;cheese&#x27;);
+
+var logger = log4js.getLogger(&#x27;cheese&#x27;);
+logger.setLevel(&#x27;ERROR&#x27;);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.replaceConsole" id="apidoc.element.log4js.replaceConsole">
+        function <span class="apidocSignatureSpan">log4js.</span>replaceConsole
+        <span class="apidocSignatureSpan">(logger)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function replaceConsole(logger) {
+  function replaceWith(fn) {
+    return function() {
+      fn.apply(logger, arguments);
+    };
+  }
+  logger = logger || getLogger(&#x22;console&#x22;);
+  [&#x27;log&#x27;,&#x27;debug&#x27;,&#x27;info&#x27;,&#x27;warn&#x27;,&#x27;error&#x27;].forEach(function (item) {
+    console[item] = replaceWith(item === &#x27;log&#x27; ? logger.info : logger[item]);
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+The default appender has been changed from `console` to `stdout` - this alleviates a memory problem that happens when logging using
+ console. If you&#x27;re using log4js in a browser (via browserify), then you&#x27;ll probably need to explicitly configure log4js
+ to use the console appender now (unless browserify handles process.stdout).
+
+I&#x27;m also trying to move away from `vows` for the tests, and use `tape` instead. New tests should be added to `test/tape`, not
+ the vows ones.
+
+log4js also no longer supports node versions below 0.12.x.
+
+NOTE: from log4js 0.5 onwards you&#x27;ll need to explicitly enable replacement of node&#x27;s console.log functions. Do this either
+ by calling `log4js.<span class="apidocCodeKeywordSpan">replaceConsole</span>()` or configuring with an object or json file like
+ this:
+
+```javascript
+{
+appenders: [
+  { type: &#x22;console&#x22; }
+],
+replaceConsole: true
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.restoreConsole" id="apidoc.element.log4js.restoreConsole">
+        function <span class="apidocSignatureSpan">log4js.</span>restoreConsole
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function restoreConsole() {
+  [&#x27;log&#x27;, &#x27;debug&#x27;, &#x27;info&#x27;, &#x27;warn&#x27;, &#x27;error&#x27;].forEach(function (item) {
+    console[item] = originalConsoleFunctions[item];
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.setGlobalLogLevel" id="apidoc.element.log4js.setGlobalLogLevel">
+        function <span class="apidocSignatureSpan">log4js.</span>setGlobalLogLevel
+        <span class="apidocSignatureSpan">(level)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function setGlobalLogLevel(level) {
+  Logger.prototype.level = levels.toLevel(level, levels.TRACE);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.shutdown" id="apidoc.element.log4js.shutdown">
+        function <span class="apidocSignatureSpan">log4js.</span>shutdown
+        <span class="apidocSignatureSpan">(cb)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function shutdown(cb) {
+  // First, disable all writing to appenders. This prevents appenders from
+  // not being able to be drained because of run-away log writes.
+  loggerModule.disableAllLogWrites();
+
+  //turn off config reloading
+  if (configState.timerId) {
+    clearInterval(configState.timerId);
+  }
+
+  // Call each of the shutdown functions in parallel
+  var completed = 0;
+  var error;
+  var shutdownFcts = [];
+  var complete = function(err) {
+    error = error || err;
+    completed++;
+    if (completed &#x3e;= shutdownFcts.length) {
+      cb(error);
+    }
+  };
+  for (var category in appenderShutdowns) {
+    if (appenderShutdowns.hasOwnProperty(category)) {
+      shutdownFcts.push(appenderShutdowns[category]);
+    }
+  }
+  if (!shutdownFcts.length) {
+    return cb();
+  }
+  shutdownFcts.forEach(function(shutdownFct) { shutdownFct(complete); });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.log4js.appenderMakers" id="apidoc.module.log4js.appenderMakers">module log4js.appenderMakers</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.appenderMakers.stdout" id="apidoc.element.log4js.appenderMakers.stdout">
+        function <span class="apidocSignatureSpan">log4js.appenderMakers.</span>stdout
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">stdout = function () { [native code] }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.log4js.appenders" id="apidoc.module.log4js.appenders">module log4js.appenders</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.appenders.stdout" id="apidoc.element.log4js.appenders.stdout">
+        function <span class="apidocSignatureSpan">log4js.appenders.</span>stdout
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">stdout = function () { [native code] }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.log4js.connect_logger" id="apidoc.module.log4js.connect_logger">module log4js.connect_logger</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.connect_logger.connectLogger" id="apidoc.element.log4js.connect_logger.connectLogger">
+        function <span class="apidocSignatureSpan">log4js.connect_logger.</span>connectLogger
+        <span class="apidocSignatureSpan">(logger4js, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function getLogger(logger4js, options) {
+	if (&#x27;object&#x27; == typeof options) {
+		options = options || {};
+	} else if (options) {
+		options = { format: options };
+	} else {
+		options = {};
+	}
+
+	var thislogger = logger4js
+  , level = levels.toLevel(options.level, levels.INFO)
+  , fmt = options.format || DEFAULT_FORMAT
+  , nolog = options.nolog ? createNoLogCondition(options.nolog) : null;
+
+  return function (req, res, next) {
+    // mount safety
+    if (req._logging) return next();
+
+		// nologs
+		if (nolog &#x26;&#x26; nolog.test(req.originalUrl)) return next();
+		if (thislogger.isLevelEnabled(level) || options.level === &#x27;auto&#x27;) {
+
+			var start = new Date()
+			, statusCode
+			, writeHead = res.writeHead
+			, url = req.originalUrl;
+
+			// flag as logging
+			req._logging = true;
+
+			// proxy for statusCode.
+			res.writeHead = function(code, headers){
+				res.writeHead = writeHead;
+				res.writeHead(code, headers);
+				res.__statusCode = statusCode = code;
+				res.__headers = headers || {};
+
+				//status code response level handling
+				if(options.level === &#x27;auto&#x27;){
+					level = levels.INFO;
+					if(code &#x3e;= 300) level = levels.WARN;
+					if(code &#x3e;= 400) level = levels.ERROR;
+				} else {
+					level = levels.toLevel(options.level, levels.INFO);
+				}
+			};
+
+			//hook on end request to emit the log entry of the HTTP request.
+			res.on(&#x27;finish&#x27;, function() {
+				res.responseTime = new Date() - start;
+				//status code response level handling
+				if(res.statusCode &#x26;&#x26; options.level === &#x27;auto&#x27;){
+					level = levels.INFO;
+					if(res.statusCode &#x3e;= 300) level = levels.WARN;
+					if(res.statusCode &#x3e;= 400) level = levels.ERROR;
+				}
+				if (thislogger.isLevelEnabled(level)) {
+          var combined_tokens = assemble_tokens(req, res, options.tokens || []);
+					if (typeof fmt === &#x27;function&#x27;) {
+						var line = fmt(req, res, function(str){ return format(str, combined_tokens); });
+						if (line) thislogger.log(level, line);
+					} else {
+						thislogger.log(level, format(fmt, combined_tokens));
+					}
+				}
+			});
+		}
+
+    //ensure next gets always called
+    next();
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.log4js.date_format" id="apidoc.module.log4js.date_format">module log4js.date_format</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.date_format.asString" id="apidoc.element.log4js.date_format.asString">
+        function <span class="apidocSignatureSpan">log4js.date_format.</span>asString
+        <span class="apidocSignatureSpan">(date, timezoneOffset)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">asString = function (date, timezoneOffset) {
+<span class="apidocCodeCommentSpan">  /*jshint -W071 */
+</span>  var format = exports.ISO8601_FORMAT;
+  if (typeof(date) === &#x22;string&#x22;) {
+    format = arguments[0];
+    date = arguments[1];
+    timezoneOffset = arguments[2];
+  }
+  // make the date independent of the system timezone by working with UTC
+  if (timezoneOffset === undefined) {
+    timezoneOffset = date.getTimezoneOffset();
+  }
+  date.setUTCMinutes(date.getUTCMinutes() - timezoneOffset);
+  var vDay = addZero(date.getUTCDate());
+  var vMonth = addZero(date.getUTCMonth()+1);
+  var vYearLong = addZero(date.getUTCFullYear());
+  var vYearShort = addZero(date.getUTCFullYear().toString().substring(2,4));
+  var vYear = (format.indexOf(&#x22;yyyy&#x22;) &#x3e; -1 ? vYearLong : vYearShort);
+  var vHour  = addZero(date.getUTCHours());
+  var vMinute = addZero(date.getUTCMinutes());
+  var vSecond = addZero(date.getUTCSeconds());
+  var vMillisecond = padWithZeros(date.getUTCMilliseconds(), 3);
+  var vTimeZone = offset(timezoneOffset);
+  date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
+  var formatted = format
+    .replace(/dd/g, vDay)
+    .replace(/MM/g, vMonth)
+    .replace(/y{1,4}/g, vYear)
+    .replace(/hh/g, vHour)
+    .replace(/mm/g, vMinute)
+    .replace(/ss/g, vSecond)
+    .replace(/SSS/g, vMillisecond)
+    .replace(/O/g, vTimeZone);
+  return formatted;
+
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.log4js.layouts" id="apidoc.module.log4js.layouts">module log4js.layouts</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.layouts.addLayout" id="apidoc.element.log4js.layouts.addLayout">
+        function <span class="apidocSignatureSpan">log4js.layouts.</span>addLayout
+        <span class="apidocSignatureSpan">(name, serializerGenerator)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">addLayout = function (name, serializerGenerator) {
+  layoutMakers[name] = serializerGenerator;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.layouts.basicLayout" id="apidoc.element.log4js.layouts.basicLayout">
+        function <span class="apidocSignatureSpan">log4js.layouts.</span>basicLayout
+        <span class="apidocSignatureSpan">(loggingEvent, timezoneOffset)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function basicLayout(loggingEvent, timezoneOffset) {
+  return timestampLevelAndCategory(
+    loggingEvent,
+    undefined,
+    timezoneOffset
+  ) + formatLogData(loggingEvent.data);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.layouts.coloredLayout" id="apidoc.element.log4js.layouts.coloredLayout">
+        function <span class="apidocSignatureSpan">log4js.layouts.</span>coloredLayout
+        <span class="apidocSignatureSpan">(loggingEvent, timezoneOffset)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function colouredLayout(loggingEvent, timezoneOffset) {
+  return timestampLevelAndCategory(
+    loggingEvent,
+    colours[loggingEvent.level.toString()],
+    timezoneOffset
+  ) + formatLogData(loggingEvent.data);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.layouts.colouredLayout" id="apidoc.element.log4js.layouts.colouredLayout">
+        function <span class="apidocSignatureSpan">log4js.layouts.</span>colouredLayout
+        <span class="apidocSignatureSpan">(loggingEvent, timezoneOffset)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function colouredLayout(loggingEvent, timezoneOffset) {
+  return timestampLevelAndCategory(
+    loggingEvent,
+    colours[loggingEvent.level.toString()],
+    timezoneOffset
+  ) + formatLogData(loggingEvent.data);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.layouts.dummyLayout" id="apidoc.element.log4js.layouts.dummyLayout">
+        function <span class="apidocSignatureSpan">log4js.layouts.</span>dummyLayout
+        <span class="apidocSignatureSpan">(loggingEvent)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function dummyLayout(loggingEvent) {
+  return loggingEvent.data[0];
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.layouts.layout" id="apidoc.element.log4js.layouts.layout">
+        function <span class="apidocSignatureSpan">log4js.layouts.</span>layout
+        <span class="apidocSignatureSpan">(name, config)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">layout = function (name, config) {
+  return layoutMakers[name] &#x26;&#x26; layoutMakers[name](config);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.layouts.messagePassThroughLayout" id="apidoc.element.log4js.layouts.messagePassThroughLayout">
+        function <span class="apidocSignatureSpan">log4js.layouts.</span>messagePassThroughLayout
+        <span class="apidocSignatureSpan">(loggingEvent)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function messagePassThroughLayout(loggingEvent) {
+  return formatLogData(loggingEvent.data);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.layouts.patternLayout" id="apidoc.element.log4js.layouts.patternLayout">
+        function <span class="apidocSignatureSpan">log4js.layouts.</span>patternLayout
+        <span class="apidocSignatureSpan">(pattern, tokens, timezoneOffset)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function patternLayout(pattern, tokens, timezoneOffset) {
+  // jshint maxstatements:22
+  var TTCC_CONVERSION_PATTERN  = &#x22;%r %p %c - %m%n&#x22;;
+  var regex = /%(-?[0-9]+)?(\.?[0-9]+)?([\[\]cdhmnprzxy%])(\{([^\}]+)\})?|([^%]+)/;
+
+  pattern = pattern || TTCC_CONVERSION_PATTERN;
+
+  function categoryName(loggingEvent, specifier) {
+    var loggerName = loggingEvent.categoryName;
+    if (specifier) {
+      var precision = parseInt(specifier, 10);
+      var loggerNameBits = loggerName.split(&#x22;.&#x22;);
+      if (precision &#x3c; loggerNameBits.length) {
+        loggerName = loggerNameBits.slice(loggerNameBits.length - precision).join(&#x22;.&#x22;);
+      }
+    }
+    return loggerName;
+  }
+
+  function formatAsDate(loggingEvent, specifier) {
+    var format = dateFormat.ISO8601_FORMAT;
+    if (specifier) {
+      format = specifier;
+      // Pick up special cases
+      if (format == &#x22;ISO8601&#x22;) {
+        format = dateFormat.ISO8601_FORMAT;
+      } else if (format == &#x22;ISO8601_WITH_TZ_OFFSET&#x22;) {
+        format = dateFormat.ISO8601_WITH_TZ_OFFSET_FORMAT;
+      } else if (format == &#x22;ABSOLUTE&#x22;) {
+        format = dateFormat.ABSOLUTETIME_FORMAT;
+      } else if (format == &#x22;DATE&#x22;) {
+        format = dateFormat.DATETIME_FORMAT;
+      }
+    }
+    // Format the date
+    return dateFormat.asString(format, loggingEvent.startTime, timezoneOffset);
+  }
+
+  function hostname() {
+    return os.hostname().toString();
+  }
+
+  function formatMessage(loggingEvent) {
+    return formatLogData(loggingEvent.data);
+  }
+
+  function endOfLine() {
+    return eol;
+  }
+
+  function logLevel(loggingEvent) {
+    return loggingEvent.level.toString();
+  }
+
+  function startTime(loggingEvent) {
+    return dateFormat.asString(&#x27;hh:mm:ss&#x27;, loggingEvent.startTime, timezoneOffset);
+  }
+
+  function startColour(loggingEvent) {
+    return colorizeStart(colours[loggingEvent.level.toString()]);
+  }
+
+  function endColour(loggingEvent) {
+    return colorizeEnd(colours[loggingEvent.level.toString()]);
+  }
+
+  function percent() {
+    return &#x27;%&#x27;;
+  }
+
+  function pid(loggingEvent) {
+    if (loggingEvent &#x26;&#x26; loggingEvent.pid) {
+      return loggingEvent.pid;
+    } else {
+      return process.pid;
+    }
+  }
+
+  function clusterInfo(loggingEvent, specifier) {
+    if (loggingEvent.cluster &#x26;&#x26; specifier) {
+      return specifier
+        .replace(&#x27;%m&#x27;, loggingEvent.cluster.master)
+        .replace(&#x27;%w&#x27;, loggingEvent.cluster.worker)
+        .replace(&#x27;%i&#x27;, loggingEvent.cluster.workerId);
+    } else if (loggingEvent.cluster) {
+      return loggingEvent.cluster.worker+&#x27;@&#x27;+loggingEvent.cluster.master;
+    } else {
+      return pid();
+    }
+  }
+
+  function userDefined(loggingEvent, specifier) {
+    if (typeof(tokens[specifier]) !== &#x27;undefined&#x27;) {
+      if (typeof(tokens[specifier]) === &#x27;function&#x27;) {
+        return tokens[specifier](loggingEvent);
+      } else {
+        return tokens[specifier];
+      }
+    }
+    return null;
+  }
+
+  var replacers = {
+    &#x27;c&#x27;: categoryName,
+    &#x27;d&#x27;: formatAsDate,
+    &#x27;h&#x27;: hostname,
+    &#x27;m&#x27;: formatMessage,
+    &#x27;n&#x27;: endOfLine,
+    &#x27;p&#x27;: logLevel,
+    &#x27;r&#x27;: startTime,
+    &#x27;[&#x27;: startColour,
+    &#x27;]&#x27;: endColour,
+    &#x27;y&#x27;: clusterInfo,
+    &#x27;z&#x27;: pid,
+    &#x27;%&#x27;: percent,
+    &#x27;x&#x27;: userDefined
+  };
+
+  function replaceToken(conversionCharacter, loggingEvent, specifier) {
+    return replacers[conversionCharacter](loggingEvent, specifier);
+  }
+
+  function truncate(truncation, toTruncate) {
+    var len;
+    if (truncation) {
+      len = parseInt(truncation.substr(1), 10);
+      return toTruncate.substring(0, len);
+    }
+
+    return toTruncate;
+  }
+
+  function pad(padding, toPad) {
+    var len;
+    if (padding) {
+      if (padding.charAt(0) == &#x22;-&#x22;) {
+        len = parseInt(padding.substr(1), 10);
+        // Right pad with spaces
+        while (toPad.length &#x3c; len) {
+          toPad += &#x22; &#x22;;
+        }
+      } else {
+        len = parseInt(padding, 10);
+        // Left pad with spaces
+        while (toPad.length &#x3c; len) {
+          toPad = &#x22; &#x22; + toPad;
+        }
+      }
+    }
+    return toPad;
+  }
+
+  function truncateAndPad(toTruncAndPad, truncation, padding) {
+    var replacement = toTruncAndPad;
+    replacement = trun ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.log4js.levels" id="apidoc.module.log4js.levels">module log4js.levels</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.levels.Level" id="apidoc.element.log4js.levels.Level">
+        function <span class="apidocSignatureSpan">log4js.levels.</span>Level
+        <span class="apidocSignatureSpan">(level, levelStr)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Level(level, levelStr) {
+  this.level = level;
+  this.levelStr = levelStr;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.levels.forName" id="apidoc.element.log4js.levels.forName">
+        function <span class="apidocSignatureSpan">log4js.levels.</span>forName
+        <span class="apidocSignatureSpan">(levelStr, levelVal)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">forName = function (levelStr, levelVal) {
+  var level;
+  if (typeof levelStr === &#x22;string&#x22; &#x26;&#x26; typeof levelVal === &#x22;number&#x22;) {
+    var levelUpper = levelStr.toUpperCase();
+    level = new levels.Level(levelVal, levelUpper);
+    loggerModule.addLevelMethods(level);
+  }
+  return level;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.levels.getLevel" id="apidoc.element.log4js.levels.getLevel">
+        function <span class="apidocSignatureSpan">log4js.levels.</span>getLevel
+        <span class="apidocSignatureSpan">(levelStr)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">getLevel = function (levelStr) {
+  var level;
+  if (typeof levelStr === &#x22;string&#x22;) {
+    var levelUpper = levelStr.toUpperCase();
+    level = levels.toLevel(levelStr);
+  }
+  return level;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.levels.toLevel" id="apidoc.element.log4js.levels.toLevel">
+        function <span class="apidocSignatureSpan">log4js.levels.</span>toLevel
+        <span class="apidocSignatureSpan">(sArg, defaultLevel)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function toLevel(sArg, defaultLevel) {
+  if (!sArg) {
+    return defaultLevel;
+  }
+  if (sArg instanceof Level) {
+    module.exports[sArg.toString()] = sArg;
+    return sArg;
+  }
+  if (typeof sArg === &#x22;string&#x22;) {
+    return module.exports[sArg.toUpperCase()] || defaultLevel;
+  }
+  return toLevel(sArg.toString());
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	} else if (options) {
+		options = { format: options };
+	} else {
+		options = {};
+	}
+
+	var thislogger = logger4js
+, level = levels.<span class="apidocCodeKeywordSpan">toLevel</span>(options.level, levels.INFO)
+, fmt = options.format || DEFAULT_FORMAT
+, nolog = options.nolog ? createNoLogCondition(options.nolog) : null;
+
+return function (req, res, next) {
+  // mount safety
+  if (req._logging) return next();
+...</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.log4js.levels.Level" id="apidoc.module.log4js.levels.Level">module log4js.levels.Level</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.levels.Level.Level" id="apidoc.element.log4js.levels.Level.Level">
+        function <span class="apidocSignatureSpan">log4js.levels.</span>Level
+        <span class="apidocSignatureSpan">(level, levelStr)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Level(level, levelStr) {
+  this.level = level;
+  this.levelStr = levelStr;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.log4js.levels.Level.prototype" id="apidoc.module.log4js.levels.Level.prototype">module log4js.levels.Level.prototype</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.levels.Level.prototype.isEqualTo" id="apidoc.element.log4js.levels.Level.prototype.isEqualTo">
+        function <span class="apidocSignatureSpan">log4js.levels.Level.prototype.</span>isEqualTo
+        <span class="apidocSignatureSpan">(otherLevel)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">isEqualTo = function (otherLevel) {
+  if (typeof otherLevel === &#x22;string&#x22;) {
+    otherLevel = toLevel(otherLevel);
+  }
+  return this.level === otherLevel.level;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.levels.Level.prototype.isGreaterThanOrEqualTo" id="apidoc.element.log4js.levels.Level.prototype.isGreaterThanOrEqualTo">
+        function <span class="apidocSignatureSpan">log4js.levels.Level.prototype.</span>isGreaterThanOrEqualTo
+        <span class="apidocSignatureSpan">(otherLevel)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">isGreaterThanOrEqualTo = function (otherLevel) {
+  if (typeof otherLevel === &#x22;string&#x22;) {
+    otherLevel = toLevel(otherLevel);
+  }
+  return this.level &#x3e;= otherLevel.level;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.levels.Level.prototype.isLessThanOrEqualTo" id="apidoc.element.log4js.levels.Level.prototype.isLessThanOrEqualTo">
+        function <span class="apidocSignatureSpan">log4js.levels.Level.prototype.</span>isLessThanOrEqualTo
+        <span class="apidocSignatureSpan">(otherLevel)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">isLessThanOrEqualTo = function (otherLevel) {
+  if (typeof otherLevel === &#x22;string&#x22;) {
+    otherLevel = toLevel(otherLevel);
+  }
+  return this.level &#x3c;= otherLevel.level;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+for (var i = 0; i &#x3c; numArgs; i++) {
+  args[i] = arguments[i + 1];
+}
+this._log(logLevel, args);
+};
+
+Logger.prototype.isLevelEnabled = function(otherLevel) {
+return this.level.<span class="apidocCodeKeywordSpan">isLessThanOrEqualTo</span>(otherLevel);
+};
+
+[&#x27;Trace&#x27;,&#x27;Debug&#x27;,&#x27;Info&#x27;,&#x27;Warn&#x27;,&#x27;Error&#x27;,&#x27;Fatal&#x27;, &#x27;Mark&#x27;].forEach
+(addLevelMethods);
+
+function addLevelMethods(level) {
+level = levels.toLevel(level);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.levels.Level.prototype.toString" id="apidoc.element.log4js.levels.Level.prototype.toString">
+        function <span class="apidocSignatureSpan">log4js.levels.Level.prototype.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+  return this.levelStr;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+if (timezoneOffset === undefined) {
+  timezoneOffset = date.getTimezoneOffset();
+}
+date.setUTCMinutes(date.getUTCMinutes() - timezoneOffset);
+var vDay = addZero(date.getUTCDate());
+var vMonth = addZero(date.getUTCMonth()+1);
+var vYearLong = addZero(date.getUTCFullYear());
+var vYearShort = addZero(date.getUTCFullYear().<span class="apidocCodeKeywordSpan">toString</span>().substring(2,4));
+var vYear = (format.indexOf(&#x22;yyyy&#x22;) &#x3e; -1 ? vYearLong : vYearShort);
+var vHour  = addZero(date.getUTCHours());
+var vMinute = addZero(date.getUTCMinutes());
+var vSecond = addZero(date.getUTCSeconds());
+var vMillisecond = padWithZeros(date.getUTCMilliseconds(), 3);
+var vTimeZone = offset(timezoneOffset);
+date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.log4js.logger" id="apidoc.module.log4js.logger">module log4js.logger</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.logger.Logger" id="apidoc.element.log4js.logger.Logger">
+        function <span class="apidocSignatureSpan">log4js.logger.</span>Logger
+        <span class="apidocSignatureSpan">(name, level)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Logger(name, level) {
+  this.category = name || DEFAULT_CATEGORY;
+
+  if (level) {
+    this.setLevel(level);
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.logger.LoggingEvent" id="apidoc.element.log4js.logger.LoggingEvent">
+        function <span class="apidocSignatureSpan">log4js.logger.</span>LoggingEvent
+        <span class="apidocSignatureSpan">(categoryName, level, data, logger)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function LoggingEvent(categoryName, level, data, logger) {
+  this.startTime = new Date();
+  this.categoryName = categoryName;
+  this.data = data;
+  this.level = level;
+  this.logger = logger;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.logger.addLevelMethods" id="apidoc.element.log4js.logger.addLevelMethods">
+        function <span class="apidocSignatureSpan">log4js.logger.</span>addLevelMethods
+        <span class="apidocSignatureSpan">(level)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function addLevelMethods(level) {
+  level = levels.toLevel(level);
+
+  var levelStrLower = level.toString().toLowerCase();
+  var levelMethod = levelStrLower.replace(/_([a-z])/g, function(g) { return g[1].toUpperCase(); } );
+  var isLevelMethod = levelMethod[0].toUpperCase() + levelMethod.slice(1);
+
+  Logger.prototype[&#x27;is&#x27;+isLevelMethod+&#x27;Enabled&#x27;] = function() {
+    return this.isLevelEnabled(level);
+  };
+
+  Logger.prototype[levelMethod] = function () {
+    if (logWritesEnabled &#x26;&#x26; this.isLevelEnabled(level)) {
+      var numArgs = arguments.length;
+      var args = new Array(numArgs);
+      for (var i = 0; i &#x3c; numArgs; i++) {
+        args[i] = arguments[i];
+      }
+      this._log(level, args);
+    }
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.logger.disableAllLogWrites" id="apidoc.element.log4js.logger.disableAllLogWrites">
+        function <span class="apidocSignatureSpan">log4js.logger.</span>disableAllLogWrites
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function disableAllLogWrites() {
+  logWritesEnabled = false;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.log4js.logger.enableAllLogWrites" id="apidoc.element.log4js.logger.enableAllLogWrites">
+        function <span class="apidocSignatureSpan">log4js.logger.</span>enableAllLogWrites
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function enableAllLogWrites() {
+  logWritesEnabled = true;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
