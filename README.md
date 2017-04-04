@@ -1,11 +1,13 @@
-# api documentation for  [log4js (v1.1.1)](https://github.com/nomiddlename/log4js-node#readme)  [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-log4js.svg)](https://travis-ci.org/npmdoc/node-npmdoc-log4js)
+# api documentation for  [log4js (v1.1.1)](https://github.com/nomiddlename/log4js-node#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-log4js.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-log4js) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-log4js.svg)](https://travis-ci.org/npmdoc/node-npmdoc-log4js)
 #### Port of Log4js to work with node.
 
 [![NPM](https://nodei.co/npm/log4js.png?downloads=true)](https://www.npmjs.com/package/log4js)
 
-[![apidoc](https://npmdoc.github.io/node-npmdoc-log4js/build/screen-capture.buildNpmdoc.browser._2Fhome_2Ftravis_2Fbuild_2Fnpmdoc_2Fnode-npmdoc-log4js_2Ftmp_2Fbuild_2Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-log4js/build..beta..travis-ci.org/apidoc.html)
+[![apidoc](https://npmdoc.github.io/node-npmdoc-log4js/build/screenCapture.buildNpmdoc.browser._2Fhome_2Ftravis_2Fbuild_2Fnpmdoc_2Fnode-npmdoc-log4js_2Ftmp_2Fbuild_2Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-log4js/build/apidoc.html)
 
-![package-listing](https://npmdoc.github.io/node-npmdoc-log4js/build/screen-capture.npmPackageListing.svg)
+![npmPackageListing](https://npmdoc.github.io/node-npmdoc-log4js/build/screenCapture.npmPackageListing.svg)
+
+![npmPackageDependencyTree](https://npmdoc.github.io/node-npmdoc-log4js/build/screenCapture.npmPackageDependencyTree.svg)
 
 
 
