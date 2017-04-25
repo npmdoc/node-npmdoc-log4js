@@ -632,7 +632,7 @@ vendor\\)s\\{0,1\\}\\(\\b\\|_\\)\
                         .split('\n')
                 );
             });
-            options.exampleList = options.exampleList.slice(0, 128);
+            options.exampleList = options.exampleList.slice(0, 128).map(readExample);
             // init moduleMain
             local.tryCatchOnError(function () {
                 console.error('apidocCreate - requiring ' + options.dir + ' ...');

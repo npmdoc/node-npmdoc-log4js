@@ -1067,7 +1067,23 @@
     }
   });
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```
+See example.js for a full example, but here&#x27;s a snippet (also in fromreadme.js):
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+//console log is loaded by default, so you won&#x27;t normally need to do this
+//log4js.loadAppender(&#x27;console&#x27;);
+log4js.loadAppender(&#x27;file&#x27;);
+//log4js.<span class="apidocCodeKeywordSpan">addAppender</span>(log4js.appenders.console());
+log4js.addAppender(log4js.appenders.file(&#x27;logs/cheese.log&#x27;), &#x27;cheese&#x27;);
+
+var logger = log4js.getLogger(&#x27;cheese&#x27;);
+logger.setLevel(&#x27;ERROR&#x27;);
+
+logger.trace(&#x27;Entering cheese testing&#x27;);
+logger.debug(&#x27;Got cheese.&#x27;);
+...</pre></li>
     </ul>
 
 
@@ -1090,7 +1106,22 @@
     }
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+
+//remember to change the require to just &#x27;log4js&#x27; if you&#x27;ve npm install&#x27;ed it
+var log4js = require(&#x27;../lib/log4js&#x27;);
+//by default the console appender is loaded
+//log4js.loadAppender(&#x27;console&#x27;);
+//you&#x27;d only need to add the console appender if you
+//had previously called log4js.<span class="apidocCodeKeywordSpan">clearAppenders</span>();
+//log4js.addAppender(log4js.appenders.console());
+log4js.loadAppender(&#x27;file&#x27;);
+log4js.addAppender(log4js.appenders.file(&#x27;cheese.log&#x27;), &#x27;cheese&#x27;);
+
+var logger = log4js.getLogger(&#x27;cheese&#x27;);
+logger.setLevel(&#x27;ERROR&#x27;);
+...</pre></li>
     </ul>
 
 
@@ -1121,7 +1152,22 @@
   }
   configureOnceOff(config, options);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```bash
+[2010-01-17 11:43:37.987] [ERROR] cheese - Cheese is too ripe!
+[2010-01-17 11:43:37.990] [FATAL] cheese - Cheese was breeding ground for listeria.
+```
+The first 5 lines of the code above could also be written as:
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+log4js.<span class="apidocCodeKeywordSpan">configure</span>({
+  appenders: [
+    { type: &#x27;console&#x27; },
+    { type: &#x27;file&#x27;, filename: &#x27;logs/cheese.log&#x27;, category: &#x27;cheese&#x27; }
+  ]
+});
+```
+...</pre></li>
     </ul>
 
 
@@ -1205,7 +1251,23 @@
     next();
   };
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+// set at which time msg is logged print like: only on error &#x26; above
+// logger.setLevel(&#x27;ERROR&#x27;);
+
+//express app
+app.configure(function() {
+	app.use(express.favicon(&#x27;&#x27;));
+	// app.use(log4js.<span class="apidocCodeKeywordSpan">connectLogger</span>(logger, { level: log4js.levels.INFO }));
+	// app.use(log4js.connectLogger(logger, { level: &#x27;auto&#x27;, format: &#x27;:method :url :status&#x27; }));
+
+	//### AUTO LEVEL DETECTION
+	//http responses 3xx, level = WARN
+	//http responses 4xx &#x26; 5xx, level = ERROR
+	//else.level = INFO
+	app.use(log4js.connectLogger(logger, { level: &#x27;auto&#x27; }));
+...</pre></li>
     </ul>
 
 
@@ -1238,7 +1300,23 @@
 
     return logger;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+vows.describe(&#x27;log4js&#x27;).addBatch({
+
+    &#x27;getBufferedLogger&#x27;: {
+topic: function () {
+    var log4js = require(&#x27;../../lib/log4js&#x27;);
+    log4js.clearAppenders();
+    var logger = log4js.<span class="apidocCodeKeywordSpan">getBufferedLogger</span>(&#x27;tests&#x27;);
+    return logger;
+},
+
+&#x27;should take a category and return a logger&#x27;: function (logger) {
+    assert.equal(logger.target.category, &#x27;tests&#x27;);
+    assert.isFunction(logger.flush);
+    assert.isFunction(logger.trace);
+...</pre></li>
     </ul>
 
 
@@ -1253,7 +1331,23 @@
     <li>description and source-code<pre class="apidocCodePre">function getDefaultLogger() {
   return getLogger(Logger.DEFAULT_CATEGORY);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  &#x27;should maintain appenders between requires&#x27;: function (logEvent) {
+    assert.equal(logEvent.data[0], &#x22;This should go to the appender defined in firstLog4js&#x22;);
+  }
+},
+
+&#x27;getDefaultLogger&#x27;: {
+  topic: function() {
+    return require(&#x27;../../lib/log4js&#x27;).<span class="apidocCodeKeywordSpan">getDefaultLogger</span>();
+  },
+  &#x27;should return a logger&#x27;: function(logger) {
+    assert.ok(logger.info);
+    assert.ok(logger.debug);
+    assert.ok(logger.error);
+  }
+}
+...</pre></li>
     </ul>
 
 
@@ -1317,7 +1411,24 @@
 
   return loggers[loggerCategoryName];
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+
+## usage
+
+Minimalist version:
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+var logger = log4js.<span class="apidocCodeKeywordSpan">getLogger</span>();
+logger.debug(&#x22;Some debug messages&#x22;);
+```
+By default, log4js outputs to stdout with the coloured layout (thanks to [masylum](http://github.com/masylum)), so for the above
+ you would see:
+```bash
+[2010-01-17 11:43:37.987] [DEBUG] [default] - Some debug messages
+```
+See example.js for a full example, but here&#x27;s a snippet (also in fromreadme.js):
+...</pre></li>
     </ul>
 
 
@@ -1374,20 +1485,20 @@
   appenderMakers[appender] = appenderModule.configure.bind(appenderModule);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-    if (excludes.indexOf(logEvent.categoryName) === -1) {
-      appender(logEvent);
-    }
-  };
-}
+```bash
+[2010-01-17 11:43:37.987] [DEBUG] [default] - Some debug messages
+```
+See example.js for a full example, but here&#x27;s a snippet (also in fromreadme.js):
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+//console log is loaded by default, so you won&#x27;t normally need to do this
+//log4js.<span class="apidocCodeKeywordSpan">loadAppender</span>(&#x27;console&#x27;);
+log4js.loadAppender(&#x27;file&#x27;);
+//log4js.addAppender(log4js.appenders.console());
+log4js.addAppender(log4js.appenders.file(&#x27;logs/cheese.log&#x27;), &#x27;cheese&#x27;);
 
-function configure(config, options) {
-  log4js.<span class="apidocCodeKeywordSpan">loadAppender</span>(config.appender.type);
-  var appender = log4js.appenderMakers[config.appender.type](config.appender, options);
-  return categoryFilter(config.exclude, appender);
-}
-
-exports.appender = categoryFilter;
-exports.configure = configure;
+var logger = log4js.getLogger(&#x27;cheese&#x27;);
+logger.setLevel(&#x27;ERROR&#x27;);
 ...</pre></li>
     </ul>
 
@@ -1411,7 +1522,28 @@ exports.configure = configure;
     console[item] = replaceWith(item === &#x27;log&#x27; ? logger.info : logger[item]);
   });
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+The default appender has been changed from `console` to `stdout` - this alleviates a memory problem that happens when logging using
+ console. If you&#x27;re using log4js in a browser (via browserify), then you&#x27;ll probably need to explicitly configure log4js
+ to use the console appender now (unless browserify handles process.stdout).
+
+I&#x27;m also trying to move away from `vows` for the tests, and use `tape` instead. New tests should be added to `test/tape`, not
+ the vows ones.
+
+log4js also no longer supports node versions below 0.12.x.
+
+NOTE: from log4js 0.5 onwards you&#x27;ll need to explicitly enable replacement of node&#x27;s console.log functions. Do this either
+ by calling `log4js.<span class="apidocCodeKeywordSpan">replaceConsole</span>()` or configuring with an object or json file like
+ this:
+
+```javascript
+{
+appenders: [
+  { type: &#x22;console&#x22; }
+],
+replaceConsole: true
+...</pre></li>
     </ul>
 
 
@@ -1428,7 +1560,23 @@ exports.configure = configure;
     console[item] = originalConsoleFunctions[item];
   });
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    assert.equal(logEvents[5].data[0], &#x22;cheese (%s) and biscuits (%s)&#x22;);
+    assert.equal(logEvents[5].data[1], &#x22;gouda&#x22;);
+    assert.equal(logEvents[5].data[2], &#x22;garibaldis&#x22;);
+  }
+},
+&#x27;when turned off&#x27;: {
+  topic: function(test) {
+    test.log4js.<span class="apidocCodeKeywordSpan">restoreConsole</span>();
+    try {
+      test.fakeConsole.log(&#x22;This should cause the error described in the setup&#x22;);
+    } catch (e) {
+      return e;
+    }
+  },
+  &#x27;should call the original console methods&#x27;: function (err) {
+...</pre></li>
     </ul>
 
 
@@ -1443,7 +1591,23 @@ exports.configure = configure;
     <li>description and source-code<pre class="apidocCodePre">function setGlobalLogLevel(level) {
   Logger.prototype.level = levels.toLevel(level, levels.TRACE);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  var log1 = log4js.getLogger(&#x27;log1&#x27;);
+  var level = &#x27;OFF&#x27;;
+  if (log1.level.toString() == level) {
+    level = &#x27;TRACE&#x27;;
+  }
+  assert.notEqual(log1.level.toString(), level);
+
+  log4js.<span class="apidocCodeKeywordSpan">setGlobalLogLevel</span>(level);
+  assert.equal(log1.level.toString(), level);
+
+  var log2 = log4js.getLogger(&#x27;log2&#x27;);
+  assert.equal(log2.level.toString(), level);
+},
+
+&#x27;global change loglevel&#x27;: function(log4js) {
+...</pre></li>
     </ul>
 
 
@@ -1486,7 +1650,19 @@ exports.configure = configure;
   }
   shutdownFcts.forEach(function(shutdownFct) { shutdownFct(complete); });
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+var server = http.createServer(function(request, response){
+    response.writeHead(200, {&#x27;Content-Type&#x27;: &#x27;text/plain&#x27;});
+    var rd = Math.random() * 50;
+    logger.info(&#x22;hello &#x22; + rd);
+    response.write(&#x27;hello &#x27;);
+    if (Math.floor(rd) == 30){
+        log4js.<span class="apidocCodeKeywordSpan">shutdown</span>(function() { process.exit(1); });
+    }
+    response.end();
+}).listen(4444);
+...</pre></li>
     </ul>
 
 
@@ -1591,7 +1767,22 @@ exports.configure = configure;
     }
   };
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        &#x27;name&#x27;: &#x27;stdout&#x27;,
+        &#x27;appender&#x27;: function () {
+          return function(evt) {
+            output.push(evt);
+          };
+        },
+        &#x27;configure&#x27;: function (config) {
+          return this.<span class="apidocCodeKeywordSpan">appender</span>();
+        }
+      }
+    }
+  }
+)
+, logger = log4js.getLogger(&#x22;default-settings&#x22;);
+...</pre></li>
     </ul>
 
 
@@ -1608,7 +1799,22 @@ exports.configure = configure;
   var appender = log4js.appenderMakers[config.appender.type](config.appender, options);
   return categoryFilter(config.exclude, appender);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```bash
+[2010-01-17 11:43:37.987] [ERROR] cheese - Cheese is too ripe!
+[2010-01-17 11:43:37.990] [FATAL] cheese - Cheese was breeding ground for listeria.
+```
+The first 5 lines of the code above could also be written as:
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+log4js.<span class="apidocCodeKeywordSpan">configure</span>({
+  appenders: [
+    { type: &#x27;console&#x27; },
+    { type: &#x27;file&#x27;, filename: &#x27;logs/cheese.log&#x27;, category: &#x27;cheese&#x27; }
+  ]
+});
+```
+...</pre></li>
     </ul>
 
 
@@ -1680,7 +1886,22 @@ exports.configure = configure;
 		};
 	}
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        &#x27;name&#x27;: &#x27;stdout&#x27;,
+        &#x27;appender&#x27;: function () {
+          return function(evt) {
+            output.push(evt);
+          };
+        },
+        &#x27;configure&#x27;: function (config) {
+          return this.<span class="apidocCodeKeywordSpan">appender</span>();
+        }
+      }
+    }
+  }
+)
+, logger = log4js.getLogger(&#x22;default-settings&#x22;);
+...</pre></li>
     </ul>
 
 
@@ -1712,7 +1933,22 @@ exports.configure = configure;
 
 	return createAppender(config);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```bash
+[2010-01-17 11:43:37.987] [ERROR] cheese - Cheese is too ripe!
+[2010-01-17 11:43:37.990] [FATAL] cheese - Cheese was breeding ground for listeria.
+```
+The first 5 lines of the code above could also be written as:
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+log4js.<span class="apidocCodeKeywordSpan">configure</span>({
+  appenders: [
+    { type: &#x27;console&#x27; },
+    { type: &#x27;file&#x27;, filename: &#x27;logs/cheese.log&#x27;, category: &#x27;cheese&#x27; }
+  ]
+});
+```
+...</pre></li>
     </ul>
 
 
@@ -1801,7 +2037,23 @@ exports.configure = configure;
     next();
   };
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+// set at which time msg is logged print like: only on error &#x26; above
+// logger.setLevel(&#x27;ERROR&#x27;);
+
+//express app
+app.configure(function() {
+	app.use(express.favicon(&#x27;&#x27;));
+	// app.use(log4js.<span class="apidocCodeKeywordSpan">connectLogger</span>(logger, { level: log4js.levels.INFO }));
+	// app.use(log4js.connectLogger(logger, { level: &#x27;auto&#x27;, format: &#x27;:method :url :status&#x27; }));
+
+	//### AUTO LEVEL DETECTION
+	//http responses 3xx, level = WARN
+	//http responses 4xx &#x26; 5xx, level = ERROR
+	//else.level = INFO
+	app.use(log4js.connectLogger(logger, { level: &#x27;auto&#x27; }));
+...</pre></li>
     </ul>
 
 
@@ -1824,7 +2076,22 @@ exports.configure = configure;
     consoleLog(layout(loggingEvent, timezoneOffset));
   };
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        &#x27;name&#x27;: &#x27;stdout&#x27;,
+        &#x27;appender&#x27;: function () {
+          return function(evt) {
+            output.push(evt);
+          };
+        },
+        &#x27;configure&#x27;: function (config) {
+          return this.<span class="apidocCodeKeywordSpan">appender</span>();
+        }
+      }
+    }
+  }
+)
+, logger = log4js.getLogger(&#x22;default-settings&#x22;);
+...</pre></li>
     </ul>
 
 
@@ -1843,7 +2110,22 @@ exports.configure = configure;
   }
   return consoleAppender(layout, config.timezoneOffset);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```bash
+[2010-01-17 11:43:37.987] [ERROR] cheese - Cheese is too ripe!
+[2010-01-17 11:43:37.990] [FATAL] cheese - Cheese was breeding ground for listeria.
+```
+The first 5 lines of the code above could also be written as:
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+log4js.<span class="apidocCodeKeywordSpan">configure</span>({
+  appenders: [
+    { type: &#x27;console&#x27; },
+    { type: &#x27;file&#x27;, filename: &#x27;logs/cheese.log&#x27;, category: &#x27;cheese&#x27; }
+  ]
+});
+```
+...</pre></li>
     </ul>
 
 
@@ -1875,7 +2157,22 @@ exports.configure = configure;
   };
 
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        &#x27;name&#x27;: &#x27;stdout&#x27;,
+        &#x27;appender&#x27;: function () {
+          return function(evt) {
+            output.push(evt);
+          };
+        },
+        &#x27;configure&#x27;: function (config) {
+          return this.<span class="apidocCodeKeywordSpan">appender</span>();
+        }
+      }
+    }
+  }
+)
+, logger = log4js.getLogger(&#x22;default-settings&#x22;);
+...</pre></li>
     </ul>
 
 
@@ -1910,7 +2207,22 @@ exports.configure = configure;
     config.timezoneOffset
   );
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```bash
+[2010-01-17 11:43:37.987] [ERROR] cheese - Cheese is too ripe!
+[2010-01-17 11:43:37.990] [FATAL] cheese - Cheese was breeding ground for listeria.
+```
+The first 5 lines of the code above could also be written as:
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+log4js.<span class="apidocCodeKeywordSpan">configure</span>({
+  appenders: [
+    { type: &#x27;console&#x27; },
+    { type: &#x27;file&#x27;, filename: &#x27;logs/cheese.log&#x27;, category: &#x27;cheese&#x27; }
+  ]
+});
+```
+...</pre></li>
     </ul>
 
 
@@ -1945,7 +2257,19 @@ exports.configure = configure;
     }
   });
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+var server = http.createServer(function(request, response){
+    response.writeHead(200, {&#x27;Content-Type&#x27;: &#x27;text/plain&#x27;});
+    var rd = Math.random() * 50;
+    logger.info(&#x22;hello &#x22; + rd);
+    response.write(&#x27;hello &#x27;);
+    if (Math.floor(rd) == 30){
+        log4js.<span class="apidocCodeKeywordSpan">shutdown</span>(function() { process.exit(1); });
+    }
+    response.end();
+}).listen(4444);
+...</pre></li>
     </ul>
 
 
@@ -1998,7 +2322,23 @@ exports.configure = configure;
   return formatted;
 
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  return colorizeStart(style) + str + colorizeEnd(style);
+}
+
+function timestampLevelAndCategory(loggingEvent, colour, timezoneOffest) {
+  var output = colorize(
+    formatLogData(
+      &#x27;[%s] [%s] %s - &#x27;
+      , dateFormat.<span class="apidocCodeKeywordSpan">asString</span>(loggingEvent.startTime, timezoneOffest)
+      , loggingEvent.level
+      , loggingEvent.categoryName
+    )
+    , colour
+  );
+  return output;
+}
+...</pre></li>
     </ul>
 
 
@@ -2047,7 +2387,22 @@ exports.configure = configure;
   };
 
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        &#x27;name&#x27;: &#x27;stdout&#x27;,
+        &#x27;appender&#x27;: function () {
+          return function(evt) {
+            output.push(evt);
+          };
+        },
+        &#x27;configure&#x27;: function (config) {
+          return this.<span class="apidocCodeKeywordSpan">appender</span>();
+        }
+      }
+    }
+  }
+)
+, logger = log4js.getLogger(&#x22;default-settings&#x22;);
+...</pre></li>
     </ul>
 
 
@@ -2078,7 +2433,22 @@ exports.configure = configure;
     config.timezoneOffset
   );
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```bash
+[2010-01-17 11:43:37.987] [ERROR] cheese - Cheese is too ripe!
+[2010-01-17 11:43:37.990] [FATAL] cheese - Cheese was breeding ground for listeria.
+```
+The first 5 lines of the code above could also be written as:
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+log4js.<span class="apidocCodeKeywordSpan">configure</span>({
+  appenders: [
+    { type: &#x27;console&#x27; },
+    { type: &#x27;file&#x27;, filename: &#x27;logs/cheese.log&#x27;, category: &#x27;cheese&#x27; }
+  ]
+});
+```
+...</pre></li>
     </ul>
 
 
@@ -2114,7 +2484,19 @@ exports.configure = configure;
     }
   });
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+var server = http.createServer(function(request, response){
+    response.writeHead(200, {&#x27;Content-Type&#x27;: &#x27;text/plain&#x27;});
+    var rd = Math.random() * 50;
+    logger.info(&#x22;hello &#x22; + rd);
+    response.write(&#x27;hello &#x27;);
+    if (Math.floor(rd) == 30){
+        log4js.<span class="apidocCodeKeywordSpan">shutdown</span>(function() { process.exit(1); });
+    }
+    response.end();
+}).listen(4444);
+...</pre></li>
     </ul>
 
 
@@ -2172,7 +2554,22 @@ exports.configure = configure;
     logFile.write(layout(loggingEvent, timezoneOffset) + eol);
   };
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        &#x27;name&#x27;: &#x27;stdout&#x27;,
+        &#x27;appender&#x27;: function () {
+          return function(evt) {
+            output.push(evt);
+          };
+        },
+        &#x27;configure&#x27;: function (config) {
+          return this.<span class="apidocCodeKeywordSpan">appender</span>();
+        }
+      }
+    }
+  }
+)
+, logger = log4js.getLogger(&#x22;default-settings&#x22;);
+...</pre></li>
     </ul>
 
 
@@ -2202,7 +2599,22 @@ exports.configure = configure;
     config.timezoneOffset
   );
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```bash
+[2010-01-17 11:43:37.987] [ERROR] cheese - Cheese is too ripe!
+[2010-01-17 11:43:37.990] [FATAL] cheese - Cheese was breeding ground for listeria.
+```
+The first 5 lines of the code above could also be written as:
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+log4js.<span class="apidocCodeKeywordSpan">configure</span>({
+  appenders: [
+    { type: &#x27;console&#x27; },
+    { type: &#x27;file&#x27;, filename: &#x27;logs/cheese.log&#x27;, category: &#x27;cheese&#x27; }
+  ]
+});
+```
+...</pre></li>
     </ul>
 
 
@@ -2316,7 +2728,22 @@ exports.configure = configure;
     });
   };
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        &#x27;name&#x27;: &#x27;stdout&#x27;,
+        &#x27;appender&#x27;: function () {
+          return function(evt) {
+            output.push(evt);
+          };
+        },
+        &#x27;configure&#x27;: function (config) {
+          return this.<span class="apidocCodeKeywordSpan">appender</span>();
+        }
+      }
+    }
+  }
+)
+, logger = log4js.getLogger(&#x22;default-settings&#x22;);
+...</pre></li>
     </ul>
 
 
@@ -2335,7 +2762,22 @@ exports.configure = configure;
   }
   return gelfAppender(layout, config);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```bash
+[2010-01-17 11:43:37.987] [ERROR] cheese - Cheese is too ripe!
+[2010-01-17 11:43:37.990] [FATAL] cheese - Cheese was breeding ground for listeria.
+```
+The first 5 lines of the code above could also be written as:
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+log4js.<span class="apidocCodeKeywordSpan">configure</span>({
+  appenders: [
+    { type: &#x27;console&#x27; },
+    { type: &#x27;file&#x27;, filename: &#x27;logs/cheese.log&#x27;, category: &#x27;cheese&#x27; }
+  ]
+});
+```
+...</pre></li>
     </ul>
 
 
@@ -2353,7 +2795,19 @@ exports.configure = configure;
     client = null;
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+var server = http.createServer(function(request, response){
+    response.writeHead(200, {&#x27;Content-Type&#x27;: &#x27;text/plain&#x27;});
+    var rd = Math.random() * 50;
+    logger.info(&#x22;hello &#x22; + rd);
+    response.write(&#x27;hello &#x27;);
+    if (Math.floor(rd) == 30){
+        log4js.<span class="apidocCodeKeywordSpan">shutdown</span>(function() { process.exit(1); });
+    }
+    response.end();
+}).listen(4444);
+...</pre></li>
     </ul>
 
 
@@ -2373,7 +2827,23 @@ exports.configure = configure;
     <li>description and source-code<pre class="apidocCodePre">addLayout = function (name, serializerGenerator) {
   layoutMakers[name] = serializerGenerator;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    assert.ok(layouts.layout(&#x22;coloured&#x22;));
+    assert.ok(layouts.layout(&#x22;pattern&#x22;));
+  }
+},
+&#x27;add layout&#x27;: {
+  topic: require(&#x27;../../lib/layouts&#x27;),
+  &#x27;should be able to add a layout&#x27;: function(layouts) {
+    layouts.<span class="apidocCodeKeywordSpan">addLayout</span>(&#x27;test_layout&#x27;, function(config){
+      assert.equal(config, &#x27;test_config&#x27;);
+      return function(logEvent) {
+        return &#x22;TEST LAYOUT &#x3e;&#x22;+logEvent.data;
+      };
+    });
+    var serializer = layouts.layout(&#x27;test_layout&#x27;, &#x27;test_config&#x27;);
+    assert.ok(serializer);
+...</pre></li>
     </ul>
 
 
@@ -2678,7 +3148,23 @@ exports.configure = configure;
   this.level = level;
   this.levelStr = levelStr;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+return loggers.hasOwnProperty(logger);
+}
+
+levels.forName = function(levelStr, levelVal) {
+var level;
+if (typeof levelStr === &#x22;string&#x22; &#x26;&#x26; typeof levelVal === &#x22;number&#x22;) {
+  var levelUpper = levelStr.toUpperCase();
+  level = new levels.<span class="apidocCodeKeywordSpan">Level</span>(levelVal, levelUpper);
+  loggerModule.addLevelMethods(level);
+}
+return level;
+};
+
+levels.getLevel = function(levelStr) {
+var level;
+...</pre></li>
     </ul>
 
 
@@ -2699,7 +3185,23 @@ exports.configure = configure;
   }
   return level;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  , log4js = require(&#x27;../../lib/log4js&#x27;)
+  , loggerModule = require(&#x27;../../lib/logger&#x27;)
+  , Logger = loggerModule.Logger;
+
+vows.describe(&#x27;../../lib/logger&#x27;).addBatch({
+  &#x27;creating a new log level&#x27;: {
+topic: function () {
+  Level.<span class="apidocCodeKeywordSpan">forName</span>(&#x22;DIAG&#x22;, 6000);
+  return new Logger();
+},
+
+&#x27;should export new log level in levels module&#x27;: function (logger) {
+  assert.isDefined(Level.DIAG);
+  assert.equal(Level.DIAG.levelStr, &#x22;DIAG&#x22;);
+  assert.equal(Level.DIAG.level, 6000);
+...</pre></li>
     </ul>
 
 
@@ -2719,7 +3221,23 @@ exports.configure = configure;
   }
   return level;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  &#x27;creating log events containing newly created log level&#x27;: {
+    topic: function() {
+var events = [],
+  logger = new Logger();
+logger.addListener(&#x22;log&#x22;, function (logEvent) { events.push(logEvent); });
+
+logger.log(Level.forName(&#x22;LVL1&#x22;, 6000), &#x22;Event 1&#x22;);
+logger.log(Level.<span class="apidocCodeKeywordSpan">getLevel</span>(&#x22;LVL1&#x22;), &#x22;Event 2&#x22;);
+logger.log(&#x22;LVL1&#x22;, &#x22;Event 3&#x22;);
+logger.lvl1(&#x22;Event 4&#x22;);
+
+logger.setLevel(Level.forName(&#x22;LVL2&#x22;, 7000));
+logger.lvl1(&#x22;Event 5&#x22;);
+
+return events;
+...</pre></li>
     </ul>
 
 
@@ -2798,7 +3316,23 @@ return function (req, res, next) {
   this.level = level;
   this.levelStr = levelStr;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+return loggers.hasOwnProperty(logger);
+}
+
+levels.forName = function(levelStr, levelVal) {
+var level;
+if (typeof levelStr === &#x22;string&#x22; &#x26;&#x26; typeof levelVal === &#x22;number&#x22;) {
+  var levelUpper = levelStr.toUpperCase();
+  level = new levels.<span class="apidocCodeKeywordSpan">Level</span>(levelVal, levelUpper);
+  loggerModule.addLevelMethods(level);
+}
+return level;
+};
+
+levels.getLevel = function(levelStr) {
+var level;
+...</pre></li>
     </ul>
 
 
@@ -2821,7 +3355,22 @@ return function (req, res, next) {
   }
   return this.level === otherLevel.level;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      cb(null, ml.messages);
+    },10);
+  },
+
+  &#x27;check message&#x27;: function(messages) {
+    assert.isArray(messages);
+    assert.equal(messages.length, 1);
+    assert.ok(levels.INFO.<span class="apidocCodeKeywordSpan">isEqualTo</span>(messages[0].level));
+    assert.include(messages[0].message, &#x27;GET&#x27;);
+    assert.include(messages[0].message, &#x27;http://url&#x27;);
+    assert.include(messages[0].message, &#x27;my.remote.addr&#x27;);
+    assert.include(messages[0].message, &#x27;200&#x27;);
+  }
+},
+...</pre></li>
     </ul>
 
 
@@ -2963,7 +3512,22 @@ date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
       send(lfsEvent);
    };
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        &#x27;name&#x27;: &#x27;stdout&#x27;,
+        &#x27;appender&#x27;: function () {
+          return function(evt) {
+            output.push(evt);
+          };
+        },
+        &#x27;configure&#x27;: function (config) {
+          return this.<span class="apidocCodeKeywordSpan">appender</span>();
+        }
+      }
+    }
+  }
+)
+, logger = log4js.getLogger(&#x22;default-settings&#x22;);
+...</pre></li>
     </ul>
 
 
@@ -2978,7 +3542,22 @@ date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
     <li>description and source-code<pre class="apidocCodePre">function configure(config) {
    return logFacesAppender(config);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```bash
+[2010-01-17 11:43:37.987] [ERROR] cheese - Cheese is too ripe!
+[2010-01-17 11:43:37.990] [FATAL] cheese - Cheese was breeding ground for listeria.
+```
+The first 5 lines of the code above could also be written as:
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+log4js.<span class="apidocCodeKeywordSpan">configure</span>({
+  appenders: [
+    { type: &#x27;console&#x27; },
+    { type: &#x27;file&#x27;, filename: &#x27;logs/cheese.log&#x27;, category: &#x27;cheese&#x27; }
+  ]
+});
+```
+...</pre></li>
     </ul>
 
 
@@ -2993,7 +3572,23 @@ date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
     <li>description and source-code<pre class="apidocCodePre">function setContext(key, value){
    context[key] = value;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      });
+   }
+
+   var lfsModule = require(&#x27;../../lib/appenders/logFacesAppender&#x27;);
+   options.send = fake;
+   log4js.clearAppenders();
+   log4js.addAppender(lfsModule.configure(options), category);
+   lfsModule.<span class="apidocCodeKeywordSpan">setContext</span>(&#x22;foo&#x22;, &#x22;bar&#x22;);
+   lfsModule.setContext(&#x22;bar&#x22;, &#x22;foo&#x22;);
+
+   return {
+      logger: log4js.getLogger(category),
+      results: sent
+   };
+}
+...</pre></li>
     </ul>
 
 
@@ -3020,7 +3615,22 @@ date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
     }
   };
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        &#x27;name&#x27;: &#x27;stdout&#x27;,
+        &#x27;appender&#x27;: function () {
+          return function(evt) {
+            output.push(evt);
+          };
+        },
+        &#x27;configure&#x27;: function (config) {
+          return this.<span class="apidocCodeKeywordSpan">appender</span>();
+        }
+      }
+    }
+  }
+)
+, logger = log4js.getLogger(&#x22;default-settings&#x22;);
+...</pre></li>
     </ul>
 
 
@@ -3037,7 +3647,22 @@ date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
   var appender = log4js.appenderMakers[config.appender.type](config.appender, options);
   return logLevelFilter(config.level, config.maxLevel, appender);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```bash
+[2010-01-17 11:43:37.987] [ERROR] cheese - Cheese is too ripe!
+[2010-01-17 11:43:37.990] [FATAL] cheese - Cheese was breeding ground for listeria.
+```
+The first 5 lines of the code above could also be written as:
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+log4js.<span class="apidocCodeKeywordSpan">configure</span>({
+  appenders: [
+    { type: &#x27;console&#x27; },
+    { type: &#x27;file&#x27;, filename: &#x27;logs/cheese.log&#x27;, category: &#x27;cheese&#x27; }
+  ]
+});
+```
+...</pre></li>
     </ul>
 
 
@@ -3114,7 +3739,23 @@ date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
     }
   };
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+}
+
+levels.forName = function(levelStr, levelVal) {
+var level;
+if (typeof levelStr === &#x22;string&#x22; &#x26;&#x26; typeof levelVal === &#x22;number&#x22;) {
+  var levelUpper = levelStr.toUpperCase();
+  level = new levels.Level(levelVal, levelUpper);
+  loggerModule.<span class="apidocCodeKeywordSpan">addLevelMethods</span>(level);
+}
+return level;
+};
+
+levels.getLevel = function(levelStr) {
+var level;
+if (typeof levelStr === &#x22;string&#x22;) {
+...</pre></li>
     </ul>
 
 
@@ -3129,7 +3770,23 @@ date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
     <li>description and source-code<pre class="apidocCodePre">function disableAllLogWrites() {
   logWritesEnabled = false;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ *  shutdown. If an error occurs, the callback will be given the error object
+ *  as the first argument.
+ * @returns {void}
+ */
+function shutdown(cb) {
+// First, disable all writing to appenders. This prevents appenders from
+// not being able to be drained because of run-away log writes.
+loggerModule.<span class="apidocCodeKeywordSpan">disableAllLogWrites</span>();
+
+//turn off config reloading
+if (configState.timerId) {
+  clearInterval(configState.timerId);
+}
+
+// Call each of the shutdown functions in parallel
+...</pre></li>
     </ul>
 
 
@@ -3144,7 +3801,23 @@ date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
     <li>description and source-code<pre class="apidocCodePre">function enableAllLogWrites() {
   logWritesEnabled = true;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  }
+  appenders[category].push(appender);
+}
+
+function clearAppenders () {
+  //if we&#x27;re calling clearAppenders, we&#x27;re probably getting ready to write
+  //so turn log writes back on, just in case this is after a shutdown
+  loggerModule.<span class="apidocCodeKeywordSpan">enableAllLogWrites</span>();
+  appenders = {};
+  for (var logger in loggers) {
+    if (hasLogger(logger)) {
+      loggers[logger].removeAllListeners(&#x22;log&#x22;);
+    }
+  }
+}
+...</pre></li>
     </ul>
 
 
@@ -3203,7 +3876,22 @@ date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
     sendLog(udp, config.host, config.port, logObject);
   };
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        &#x27;name&#x27;: &#x27;stdout&#x27;,
+        &#x27;appender&#x27;: function () {
+          return function(evt) {
+            output.push(evt);
+          };
+        },
+        &#x27;configure&#x27;: function (config) {
+          return this.<span class="apidocCodeKeywordSpan">appender</span>();
+        }
+      }
+    }
+  }
+)
+, logger = log4js.getLogger(&#x22;default-settings&#x22;);
+...</pre></li>
     </ul>
 
 
@@ -3222,7 +3910,22 @@ date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
   }
   return logstashUDP(config, layout);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```bash
+[2010-01-17 11:43:37.987] [ERROR] cheese - Cheese is too ripe!
+[2010-01-17 11:43:37.990] [FATAL] cheese - Cheese was breeding ground for listeria.
+```
+The first 5 lines of the code above could also be written as:
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+log4js.<span class="apidocCodeKeywordSpan">configure</span>({
+  appenders: [
+    { type: &#x27;console&#x27; },
+    { type: &#x27;file&#x27;, filename: &#x27;logs/cheese.log&#x27;, category: &#x27;cheese&#x27; }
+  ]
+});
+```
+...</pre></li>
     </ul>
 
 
@@ -3258,7 +3961,22 @@ date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
         });
     };
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        &#x27;name&#x27;: &#x27;stdout&#x27;,
+        &#x27;appender&#x27;: function () {
+          return function(evt) {
+            output.push(evt);
+          };
+        },
+        &#x27;configure&#x27;: function (config) {
+          return this.<span class="apidocCodeKeywordSpan">appender</span>();
+        }
+      }
+    }
+  }
+)
+, logger = log4js.getLogger(&#x22;default-settings&#x22;);
+...</pre></li>
     </ul>
 
 
@@ -3284,7 +4002,22 @@ date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
 
     return mailgunAppender(_config, layout);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```bash
+[2010-01-17 11:43:37.987] [ERROR] cheese - Cheese is too ripe!
+[2010-01-17 11:43:37.990] [FATAL] cheese - Cheese was breeding ground for listeria.
+```
+The first 5 lines of the code above could also be written as:
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+log4js.<span class="apidocCodeKeywordSpan">configure</span>({
+  appenders: [
+    { type: &#x27;console&#x27; },
+    { type: &#x27;file&#x27;, filename: &#x27;logs/cheese.log&#x27;, category: &#x27;cheese&#x27; }
+  ]
+});
+```
+...</pre></li>
     </ul>
 
 
@@ -3308,7 +4041,22 @@ date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
     return workerAppender(config);
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        &#x27;name&#x27;: &#x27;stdout&#x27;,
+        &#x27;appender&#x27;: function () {
+          return function(evt) {
+            output.push(evt);
+          };
+        },
+        &#x27;configure&#x27;: function (config) {
+          return this.<span class="apidocCodeKeywordSpan">appender</span>();
+        }
+      }
+    }
+  }
+)
+, logger = log4js.getLogger(&#x22;default-settings&#x22;);
+...</pre></li>
     </ul>
 
 
@@ -3329,7 +4077,22 @@ date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
   }
   return createAppender(config);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```bash
+[2010-01-17 11:43:37.987] [ERROR] cheese - Cheese is too ripe!
+[2010-01-17 11:43:37.990] [FATAL] cheese - Cheese was breeding ground for listeria.
+```
+The first 5 lines of the code above could also be written as:
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+log4js.<span class="apidocCodeKeywordSpan">configure</span>({
+  appenders: [
+    { type: &#x27;console&#x27; },
+    { type: &#x27;file&#x27;, filename: &#x27;logs/cheese.log&#x27;, category: &#x27;cheese&#x27; }
+  ]
+});
+```
+...</pre></li>
     </ul>
 
 
@@ -3355,7 +4118,19 @@ date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
     });
   });
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+var server = http.createServer(function(request, response){
+    response.writeHead(200, {&#x27;Content-Type&#x27;: &#x27;text/plain&#x27;});
+    var rd = Math.random() * 50;
+    logger.info(&#x22;hello &#x22; + rd);
+    response.write(&#x27;hello &#x27;);
+    if (Math.floor(rd) == 30){
+        log4js.<span class="apidocCodeKeywordSpan">shutdown</span>(function() { process.exit(1); });
+    }
+    response.end();
+}).listen(4444);
+...</pre></li>
     </ul>
 
 
@@ -3378,7 +4153,22 @@ date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
     process.stderr.write(layout(loggingEvent, timezoneOffset) + &#x27;\n&#x27;);
   };
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        &#x27;name&#x27;: &#x27;stdout&#x27;,
+        &#x27;appender&#x27;: function () {
+          return function(evt) {
+            output.push(evt);
+          };
+        },
+        &#x27;configure&#x27;: function (config) {
+          return this.<span class="apidocCodeKeywordSpan">appender</span>();
+        }
+      }
+    }
+  }
+)
+, logger = log4js.getLogger(&#x22;default-settings&#x22;);
+...</pre></li>
     </ul>
 
 
@@ -3397,7 +4187,22 @@ date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
   }
   return stderrAppender(layout, config.timezoneOffset);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```bash
+[2010-01-17 11:43:37.987] [ERROR] cheese - Cheese is too ripe!
+[2010-01-17 11:43:37.990] [FATAL] cheese - Cheese was breeding ground for listeria.
+```
+The first 5 lines of the code above could also be written as:
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+log4js.<span class="apidocCodeKeywordSpan">configure</span>({
+  appenders: [
+    { type: &#x27;console&#x27; },
+    { type: &#x27;file&#x27;, filename: &#x27;logs/cheese.log&#x27;, category: &#x27;cheese&#x27; }
+  ]
+});
+```
+...</pre></li>
     </ul>
 
 
@@ -3420,7 +4225,22 @@ date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
     process.stdout.write(layout(loggingEvent, timezoneOffset) + &#x27;\n&#x27;);
   };
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        &#x27;name&#x27;: &#x27;stdout&#x27;,
+        &#x27;appender&#x27;: function () {
+          return function(evt) {
+            output.push(evt);
+          };
+        },
+        &#x27;configure&#x27;: function (config) {
+          return this.<span class="apidocCodeKeywordSpan">appender</span>();
+        }
+      }
+    }
+  }
+)
+, logger = log4js.getLogger(&#x22;default-settings&#x22;);
+...</pre></li>
     </ul>
 
 
@@ -3439,7 +4259,22 @@ date.setUTCMinutes(date.getUTCMinutes() + timezoneOffset);
   }
   return stdoutAppender(layout, config.timezoneOffset);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```bash
+[2010-01-17 11:43:37.987] [ERROR] cheese - Cheese is too ripe!
+[2010-01-17 11:43:37.990] [FATAL] cheese - Cheese was breeding ground for listeria.
+```
+The first 5 lines of the code above could also be written as:
+```javascript
+var log4js = require(&#x27;log4js&#x27;);
+log4js.<span class="apidocCodeKeywordSpan">configure</span>({
+  appenders: [
+    { type: &#x27;console&#x27; },
+    { type: &#x27;file&#x27;, filename: &#x27;logs/cheese.log&#x27;, category: &#x27;cheese&#x27; }
+  ]
+});
+```
+...</pre></li>
     </ul>
 
 
