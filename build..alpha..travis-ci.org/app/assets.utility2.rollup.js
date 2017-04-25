@@ -600,12 +600,8 @@ local.templateApidocHtml = '\
 /* jslint-ignore-begin */
 '"\
 /\\.\\|\\(\\b\\|_\\)\\(\
-archive\\|artifact\\|asset\\|\
-bower_component\\|build\\|\
+bower_component\\|\
 coverage\\|\
-dist\\|\
-external\\|\
-log\\|\
 min\\|\
 node_module\\|\
 rollup\\|\
@@ -694,22 +690,18 @@ vendor\\)s\\{0,1\\}\\(\\b\\|_\\)\
 /* jslint-ignore-begin */
 '"\
 /\\.\\|\\(\\b\\|_\\)\\(\
-doc\\|\
-example\\|\
-fixture\\|\
-mock\\|\
-spec\\|\
-test\\|\
 archive\\|artifact\\|asset\\|\
 bower_component\\|build\\|\
 coverage\\|\
-dist\\|\
-external\\|\
+doc\\|dist\\|\
+example\\|external\\|\
+fixture\\|\
 log\\|\
-min\\|\
+min\\|mock\\|\
 node_module\\|\
 rollup\\|\
-tmp\\|\
+spec\\|\
+test\\|tmp\\|\
 vendor\\)s\\{0,1\\}\\(\\b\\|_\\)\
 " ' +
 /* jslint-ignore-end */
